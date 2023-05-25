@@ -1,16 +1,11 @@
-/******************************************************************************
-
-Welcome to GDB Online.
-GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
-C#, OCaml, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
-Code, Compile, Run and Debug online from anywhere in world.
-
-*******************************************************************************/
 using System;
 
 class HelloWorld {
     
     static void map(int mapMake, int placeUsed, int placeUsedSection) {
+        int spaceLength = 17;
+        string nameOutput = "";
+        string s = "";
         switch(mapMake)
         {
             case 1:
@@ -24,11 +19,9 @@ class HelloWorld {
                 map(5, 0, 0);
                 break;
             case 3:
-                int spaceLength = 17;
-                string s = "";
                 for(int x = names[placeUsed][placeUsedSection].Length; x < spaceLength; x++)
                     s += " ";
-                string nameOutput = names[placeUsed][placeUsedSection];
+                /*string*/ nameOutput = names[placeUsed][placeUsedSection];
                 if(names[placeUsed][placeUsedSection].Length > spaceLength)
                    nameOutput = names[placeUsed][placeUsedSection].Substring(0, spaceLength);
                 Console.Write("|" + nameOutput + s);
@@ -61,6 +54,16 @@ class HelloWorld {
                 Console.Write("+-----------------");
                 map(4, 0, 0);
                 break;
+            case 10:
+                for(int x = 0; x < charloc.Length; x++)
+                    if(charloc[x] == placeUsed)
+                        nameOutput += (x+1) + " ";
+                for(int x = nameOutput.Length; x < spaceLength; x++)
+                    s += " ";
+                if(nameOutput.Length > spaceLength)
+                   nameOutput = nameOutput.Substring(0, spaceLength);
+                Console.Write("|" + nameOutput + s);
+                break;
             default:
                 Console.WriteLine("error");
                 break;
@@ -68,9 +71,17 @@ class HelloWorld {
     }
     
     private static string[][] names;
+    private static string[] price = {   "",  "60", "",  "60", "0", "200", "100",  "", "100", "120", "",  "140", "0", "140", "160", "200", "180", "",  "180", "200", "0", "220", "",  "220", "240", "200", "260", "260", "0", "280", "",  "300", "300", "",  "320", "200", "",  "350", "0", "400"};
+    private static string[] pph = {     "0", "50", "0", "50", "0", "0",   "50",  "0", "50",  "50" , "0", "100", "0", "100", "100", "0",   "100", "0", "100", "100", "0", "150", "0", "150", "150", "0",   "150", "150", "0", "150", "0", "200", "200", "0", "200", "0",   "0", "200", "0", "200"};
+    private static string[] rent = {    "0", "2",  "0", "4",  "0", "0",   "6",   "0", "6",   "8",   "0", "10",  "0", "10",  "12",  "0",   "14",  "0", "14",  "16",  "0", "18",  "0", "18",  "20",  "0",   "22",  "22",  "0", "24",  "0", "26",  "26",  "0", "28",  "0",   "0", "35",  "0", "50"};
+    private static string[] rent1 = {   "0", "10", "0", "20", "0", "0",   "30",  "0", "30",  "40",  "0", "50",  "0", "50",  "60",  "0",   "70",  "0", "70",  "80",  "0", "90",  "0", "90",  "100", "0",   "110", "110", "0", "120", "0", "150", "130", "0", "150", "0",   "0", "175", "0", "200"};
+    private static string[] rent2 = {   "0", "30", "0", "60", "0", "0",   "90",  "0", "90",  "100", "0", "150", "0", "150", "180", "0",   "200", "0", "200", "220", "0", "250", "0", "250", "300", "0",   "330", "330", "0", "360", "0", "390", "390", "0", "450", "0",   "0", "500", "0", "600"};
+    private static string[] rent3 = {   "0", "90", "0", "180","0", "0",   "270", "0", "270", "300", "0", "450", "0", "450", "500", "0",   "550", "0", "550", "600", "0", "700", "0", "700", "750", "0",   "800", "800", "0", "850", "0", "900", "900", "0", "1000","0",   "0", "1100","0", "1400"};
+    private static string[] rent4 = {   "0", "160","0", "320","0", "0",   "400", "0", "400", "450", "0", "625", "0", "625", "700", "0",   "750", "0", "750", "800", "0", "875", "0", "875", "925", "0",   "975", "975", "0", "1025","0", "1100","1100","0", "1200","0",   "0", "1300","0", "1700"};
+    private static string[] rentH = {   "0", "250","0", "450","0", "0",   "550", "0", "550", "600", "0", "750", "0", "750", "900", "0",   "950", "0", "950", "1000","0", "1050","0", "1050","1100","0",   "1150","1150","0", "1200","0", "1275","1275","0", "1400","0",   "0", "1500","0", "0"};
+    private static string[] mortgage = {"0", "30", "0", "30", "0", "100", "50",  "0", "50",  "60",  "0", "70",  "0", "70",  "80",  "0",   "90",  "0", "90",  "100", "0", "110", "0", "110", "120", "0",   "130", "130", "0", "140", "0", "150", "150", "0", "160", "0",   "0", "175", "0", "200"};
     static void defaultCreate(){
         string[] nameList = {"Go","Mediterranean Avenue","Community Chest","Baltic Avenue","Income Tax","Reading Railroad", "Oriental Avenue", "Chance", "Vermont Avenue", "Connecticut Avenue", "Jail / Just Visiting", "St. Charles Place", "Electric Company", "States Avenue", "Virginia Avenue", "Pennsylvania Railroad", "St. James Place", "Community Chest", "Tennessee Avenue", "New York Avenue", "Free Parking", "Kentucky Avenue", "Chance", "Indiana Avenue", "Illinois Avenue", "B. & O. Railroad", "Atlantic Avenue", "Ventnor Avenue", "Water Works", "Marvin Gardens", "Go To Jail", "Pacific Avenue", "North Carolina Avenue", "Community Chest", "Pennsylvania Avenue", "Short Line", "Chance", "Park Place", "Luxury Tax", "Boardwalk"};
-        string[] price = {"0", "60", "0", "60", "0", "200", "100", "0", "100", "120", "0", "140", "0", "140", "160", "200", "180", "0", "180", "200", "0", "220", "0", "220", "240", "200", "260", "260", "0", "280", "0", "300", "300", "0", "320", "200", "0", "350", "0", "400"};
         int lengthOfBoard = nameList.Length;
         names = new string[lengthOfBoard][];
         for(int x = 0; x < lengthOfBoard; x++)
@@ -95,7 +106,9 @@ class HelloWorld {
         for(int x = 0; x < 11; x++)
             map(3, x, 1);
         map(5, 0, 0);
-        map(2, 0, 0);
+        for(int x = 0; x < 11; x++)
+            map(10, x, 0);
+        map(5, 0, 0);
         map(8, 0, 0);
         
         for(int x = 0; x < 9; x++)
@@ -109,7 +122,10 @@ class HelloWorld {
             map(6, 0, 0);
             map(3, 11 + x, 1);
             map(5, 0, 0);
-            map(7, 0, 0);
+            map(10, 39-x, 0);
+            map(6, 0, 0);
+            map(10, 11 + x, 0);
+            map(5, 0, 0);
             if(x != 8)
                 map(9, 0, 0);
             else
@@ -123,7 +139,10 @@ class HelloWorld {
         for(int x = 30; x > 19; x--)
             map(3, x, 1);
         map(5, 0, 0);
-        map(2, 0, 0);
+        //map(2, 0, 0);
+        for(int x = 30; x > 19; x--)
+            map(10, x, 0);
+        map(5, 0, 0);
         map(1, 0, 0);
     }
     
@@ -141,7 +160,7 @@ class HelloWorld {
                 if(lang == "日本語")
                     Console.WriteLine("");
                 else
-                    Console.WriteLine("What would you like to do?\nr-roll.");
+                    Console.WriteLine("What would player " + turn + " like to do?\nr-roll.");
                 break;
             case 2:
                 Console.WriteLine("That ins't a number.");
@@ -186,9 +205,10 @@ class HelloWorld {
     }
     
     private static int[] charMoney;
+    private static int[] charloc;
+    private static int turn;
     static void Main() {
         defaultCreate();
-        // printOutMap();
         string letter = "草";
         string lang = "分からない";
         output(0, lang);
@@ -208,13 +228,18 @@ class HelloWorld {
                 }
         }
         charMoney = new int[playerAmount];
+        charloc = new int[playerAmount];
         for(int x = 0; x < playerAmount; x++)
+        {
             charMoney[x] = 2000;
+            charloc[x] = 0;
+        }
+        turn = 1;
         while(letter != "辞める")
         {
             printOutMap();
             for(int x = 0; x < playerAmount; x++)
-                Console.Write("p"+x+" - " +charMoney[x] + " ");
+                Console.Write("p"+(x+1)+" - " +charMoney[x] + " ");
             Console.WriteLine();
             output(1, lang);
             letter = Console.ReadLine();
@@ -226,6 +251,12 @@ class HelloWorld {
                             int r2 = rnd.Next(1, 7);
                             dice(r1);
                             dice(r2);
+                            charloc[turn-1] += r1+r2;
+                            charloc[turn-1] %= 40;
+                            Console.WriteLine(charloc[turn-1]);
+                            turn++;
+                            if(playerAmount < turn)
+                                turn = 1;
                             break;
                         }
                     case "ゐ":
@@ -234,12 +265,16 @@ class HelloWorld {
                             if(letter == "１")
                                 for(int x = 0; x <= 100; x++)
                                      dice(rnd.Next(1, 7));
+                            if(letter == "２")
+                                for(int x = 0; x < playerAmount; x++)
+                                    charloc[x] = rnd.Next(0, 40);
                             break;
                         }
                 }
         }
     }
 }
+
 
 
 
