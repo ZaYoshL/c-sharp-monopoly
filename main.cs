@@ -92,7 +92,7 @@ class HelloWorld {
                 names[x][1] = price[x];
             else
                 names[x][1] = "a";
-            names[x][2] = "" + 0;
+            names[x][2] = "" + -1;
         }
     }
     
@@ -208,6 +208,7 @@ class HelloWorld {
     private static int[] charloc;
     private static int turn;
     static void Main() {
+        Console.Clear();
         defaultCreate();
         string letter = "草";
         string lang = "分からない";
@@ -227,6 +228,7 @@ class HelloWorld {
                     output(2, lang);
                 }
         }
+        Console.Clear();
         charMoney = new int[playerAmount];
         charloc = new int[playerAmount];
         for(int x = 0; x < playerAmount; x++)
@@ -237,6 +239,7 @@ class HelloWorld {
         turn = 1;
         while(letter != "辞める")
         {
+            Console.Clear();
             printOutMap();
             for(int x = 0; x < playerAmount; x++)
                 Console.Write("p"+(x+1)+" - " +charMoney[x] + " ");
@@ -247,13 +250,47 @@ class HelloWorld {
                 {
                     case "r":
                         {
+                            Console.Clear();
                             int r1 = rnd.Next(1, 7);
                             int r2 = rnd.Next(1, 7);
                             dice(r1);
                             dice(r2);
                             charloc[turn-1] += r1+r2;
                             charloc[turn-1] %= 40;
-                            Console.WriteLine(charloc[turn-1]);
+                            Console.WriteLine("You rolled a " + (r1+r2) + "!");
+                            Console.ReadLine();
+                            Console.Clear();
+                            Console.WriteLine("You landed on " + names[charloc[turn-1]][0] + "!");
+                            //Console.WriteLine("|"+names[charloc[turn-1]][1]+"|");
+                            if(names[charloc[turn-1]][1] != "")
+                            {
+                                if(names[charloc[turn-1]][2] == "-1")
+                                    {
+                                        Console.WriteLine("Nobody owns it, do you want to buy it for " + names[charloc[turn-1]][1] + "?\nY/N");
+                                        string YN = Console.ReadLine();
+                                        while(YN != "Y" && YN != "N" && YN != "y" && YN != "n")
+                                                YN = Console.ReadLine();
+                                        if(YN == "Y" || YN == "y")
+                                            names[charloc[turn-1]][2] = "" + (turn-1);
+                                    }
+                                else if(names[charloc[turn-1]][2] == "" + (turn-1))
+                                    {
+                                        Console.WriteLine("You already own this.");
+                                        Console.ReadLine();
+                                    }
+                                else
+                                    {
+                                        Console.WriteLine("You don't own this so you will have to pay " + names[charloc[turn-1]][1] + " to player " + Int32.Parse((names[charloc[turn-1]][2]+1)));
+                                        Console.ReadLine();
+                                    }
+                            }
+                            else
+                            {
+                                Console.WriteLine();
+                                Console.ReadLine();
+                            }
+                            //Console.ReadLine();
+                            Console.Clear();
                             turn++;
                             if(playerAmount < turn)
                                 turn = 1;
@@ -268,12 +305,17 @@ class HelloWorld {
                             if(letter == "２")
                                 for(int x = 0; x < playerAmount; x++)
                                     charloc[x] = rnd.Next(0, 40);
+                            if(letter == "３")
+                                for(int x = 0; x < 40; x++)
+                                    names[x][2] = "" + 0;
                             break;
                         }
                 }
+                Console.Clear();
         }
     }
 }
+
 
 
 
