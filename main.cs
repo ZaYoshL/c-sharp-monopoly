@@ -71,7 +71,7 @@ class HelloWorld {
     }
     
     private static string[][] names;
-    private static string[] price = {   "",  "60", "",  "60", "0", "200", "100",  "", "100", "120", "",  "140", "0", "140", "160", "200", "180", "",  "180", "200", "0", "220", "",  "220", "240", "200", "260", "260", "0", "280", "",  "300", "300", "",  "320", "200", "",  "350", "0", "400"};
+    private static string[] price = {   "",  "60", "",  "60", "", "200", "100",  "", "100", "120", "",  "140", "0", "140", "160", "200", "180", "",  "180", "200", "", "220", "",  "220", "240", "200", "260", "260", "0", "280", "",  "300", "300", "",  "320", "200", "",  "350", "", "400"};
     private static string[] pph = {     "0", "50", "0", "50", "0", "0",   "50",  "0", "50",  "50" , "0", "100", "0", "100", "100", "0",   "100", "0", "100", "100", "0", "150", "0", "150", "150", "0",   "150", "150", "0", "150", "0", "200", "200", "0", "200", "0",   "0", "200", "0", "200"};
     private static string[] rent = {    "0", "2",  "0", "4",  "0", "0",   "6",   "0", "6",   "8",   "0", "10",  "0", "10",  "12",  "0",   "14",  "0", "14",  "16",  "0", "18",  "0", "18",  "20",  "0",   "22",  "22",  "0", "24",  "0", "26",  "26",  "0", "28",  "0",   "0", "35",  "0", "50"};
     private static string[] rent1 = {   "0", "10", "0", "20", "0", "0",   "30",  "0", "30",  "40",  "0", "50",  "0", "50",  "60",  "0",   "70",  "0", "70",  "80",  "0", "90",  "0", "90",  "100", "0",   "110", "110", "0", "120", "0", "150", "130", "0", "150", "0",   "0", "175", "0", "200"};
@@ -256,6 +256,8 @@ class HelloWorld {
                             dice(r1);
                             dice(r2);
                             charloc[turn-1] += r1+r2;
+                            if(charloc[turn-1] >= 40)
+                                charMoney[turn-1] += 200;
                             charloc[turn-1] %= 40;
                             Console.WriteLine("You rolled a " + (r1+r2) + "!");
                             Console.ReadLine();
@@ -271,7 +273,10 @@ class HelloWorld {
                                         while(YN != "Y" && YN != "N" && YN != "y" && YN != "n")
                                                 YN = Console.ReadLine();
                                         if(YN == "Y" || YN == "y")
+                                        {
                                             names[charloc[turn-1]][2] = "" + (turn-1);
+                                            names[charloc[turn-1]][1] = rent[turn-1];
+                                        }
                                     }
                                 else if(names[charloc[turn-1]][2] == "" + (turn-1))
                                     {
@@ -280,13 +285,52 @@ class HelloWorld {
                                     }
                                 else
                                     {
-                                        Console.WriteLine("You don't own this so you will have to pay " + names[charloc[turn-1]][1] + " to player " + Int32.Parse((names[charloc[turn-1]][2]+1)));
-                                        Console.ReadLine();
+                                        if(charloc[turn-1] == 12 || charloc[turn-1] == 28)
+                                            {
+                                                int minusMoney = 4 * (r1+r2);
+                                                if(names[12][2] == names[28][2])
+                                                    minusMoney = 10 * (r1+r2);
+                                                Console.WriteLine("You don't own this so you will have to pay " + minusMoney + " to player " + Int32.Parse((names[charloc[turn-1]][2]+1)));
+                                                charMoney[turn-1] -= minusMoney;
+                                                charMoney[Int32.Parse((names[charloc[turn-1]][2]))] += minusMoney;
+                                            }
+                                        else
+                                            {
+                                                Console.WriteLine("You don't own this so you will have to pay " + names[charloc[turn-1]][1] + " to player " + Int32.Parse((names[charloc[turn-1]][2]+1)));
+                                                charMoney[turn-1] -= Int32.Parse(names[charloc[turn-1]][1]);
+                                                charMoney[Int32.Parse((names[charloc[turn-1]][2]))] += Int32.Parse(names[charloc[turn-1]][1]);
+                                            }
+                                            Console.ReadLine();
                                     }
                             }
                             else
                             {
-                                Console.WriteLine();
+                                switch(names[charloc[turn-1]][0])
+                                {
+                                    case "Community Chest":
+                                        Console.WriteLine("1");
+                                        break;
+                                    case "Income Tax":
+                                        if(charMoney[turn-1]*.1>=200)
+                                            charMoney[turn-1] -= 200;
+                                        else
+                                            charMoney[turn-1] = (int)(charMoney[turn-1]*.9);
+                                        break;
+                                    case "Chance":
+                                        Console.WriteLine("3");
+                                        break;
+                                    case "Luxury Tax":
+                                        charMoney[turn-1] -= 75;
+                                        break;
+                                    case "Go To Jail":
+                                        charloc[turn-1] = 11;
+                                        break;
+                                    case "Free Parking":
+                                        Console.WriteLine("6");
+                                        break;
+                                    default:
+                                        break;
+                                }
                                 Console.ReadLine();
                             }
                             //Console.ReadLine();
@@ -307,7 +351,19 @@ class HelloWorld {
                                     charloc[x] = rnd.Next(0, 40);
                             if(letter == "３")
                                 for(int x = 0; x < 40; x++)
-                                    names[x][2] = "" + 0;
+                                    {
+                                        names[x][2] = "" + 0;
+                                        names[x][1] = rent[x];
+                                    }
+                            if(letter == "４")
+                                for(int x = 0; x < playerAmount; x++)
+                                    charloc[x] = 39;
+                            if(letter == "５")
+                                for(int x = 0; x < playerAmount; x++)
+                                    charMoney[x] = 50000;
+                            if(letter == "６")
+                                for(int x = 0; x < playerAmount; x++)
+                                    charMoney[x] = 10;
                             break;
                         }
                 }
@@ -315,6 +371,7 @@ class HelloWorld {
         }
     }
 }
+
 
 
 
